@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1.0",
+  "incident_id": "inc-0001-demo",
+  "detected_at": "2026-11-21T10:15:30Z",
+  "distress": true,
+  "event_type_probable": "vehicle_collision",
+  "location": {
+    "latitude": 30.0131,
+    "longitude": 31.2089,
+    "accuracy_m": 18.5,
+    "age_s": 2
+  },
+  "simulated": true
+}

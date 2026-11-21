@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.1.0",
+  "incident_id": "inc-0001-demo",
+  "detected_at": "2026-11-21T10:15:30Z",
+  "event_type_probable": "vehicle_collision",
+  "confidence": 1.4,
+  "sources": {
+    "event_type_probable": "sensor",
+    "location": "simulation",
+    "user_state": "system"
+  },
+  "location": {
+    "latitude": 30.0131,
+    "longitude": 31.2089,
+    "accuracy_m": 18.5,
+    "measured_at": "2026-11-21T10:15:28Z",
+    "source": "simulation"
+  },
+  "user_state": "unable_to_respond",
+  "needs": [
+    "medical_assistance"
+  ],
+  "hazards": [],
+  "simulated": true,
+  "attempts": [
+    {
+      "entity_id": "test-entity-ems-01",
+      "transport": "cellular",
+      "sent_at": "2026-11-21T10:15:40Z",
+      "outcome": "handoff"
+    }
+  ]
+}

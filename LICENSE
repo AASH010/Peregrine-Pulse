@@ -1,0 +1,43 @@
+PeregrinePulse — Source-Available, All Rights Reserved
+
+Copyright (c) 2026 The PeregrinePulse authors. All rights reserved.
+
+1. Ownership
+   The software, documentation, data, designs and other materials in this
+   repository (the "Materials") are the property of The PeregrinePulse authors
+   (the "Authors"). Publishing this repository does not transfer ownership.
+
+2. Limited permission to view
+   Permission is granted to view and read the Materials, and to fork this
+   repository on GitHub in accordance with GitHub's Terms of Service, solely
+   for the purpose of evaluating the project.
+
+3. Everything else is reserved
+   Except as stated in section 2, no license or right is granted. Without prior
+   written permission from the Authors you may not copy, modify, merge,
+   publish, distribute, sublicense, sell, host, deploy or otherwise use the
+   Materials or any part of them, for any purpose, commercial or
+   non-commercial.
+
+4. Separate agreements
+   This notice does not limit rights that the Authors grant to others in a
+   separate written agreement.
+
+5. Names, logos and brand assets
+   The names "PeregrinePulse" and "FalcoPeregrinus", the logos, and the files
+   in the assets/ directory are not licensed for any use beyond viewing them in
+   this repository.
+
+6. Third-party components
+   Third-party software used or referenced by this project remains under its
+   own license. This notice does not change those licenses.
+
+7. Prototype notice and no warranty
+   PeregrinePulse is a prototype. It is not a certified emergency dispatch
+   system and must not be relied upon in a real emergency.
+
+   THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE MATERIALS OR THEIR USE.

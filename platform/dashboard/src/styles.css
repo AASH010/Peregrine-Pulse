@@ -1,0 +1,67 @@
+:root {
+  --navy: #0f2747;
+  --red: #e5322d;
+  --coral: #f1584c;
+  --pink: #f3a3a0;
+  --panel: #16335a;
+  --text: #ffffff;
+  --muted: #9fb3cc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--text);
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+h1 {
+  margin: 0 0 8px;
+}
+
+.notice {
+  color: var(--pink);
+  border-left: 4px solid var(--red);
+  padding-left: 12px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.card h3 {
+  margin: 8px 0;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #3a4f6e;
+}
+
+.badge-simulated {
+  background: var(--coral);
+}

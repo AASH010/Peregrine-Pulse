@@ -1,0 +1,58 @@
+{
+  "version": "0.1.0",
+  "description": "Two-layer incident state model, draft (task LIF-03). Internal states drive the server and agent; seven user-facing stages plus overlays are what people see. A stage may only be shown when its evidence exists.",
+  "stages": ["Prepared", "Sent", "Delivered", "Acknowledged", "Response Dispatched", "Arrived", "Closed"],
+  "initial": "CREATED",
+  "terminal": ["CLOSED", "CANCELLED", "EXHAUSTED", "REJECTED_BY_POLICY"],
+  "stage_map": {
+    "CREATED": "Prepared",
+    "VALIDATING": "Prepared",
+    "ASSESSING": "Prepared",
+    "AWAITING_USER": "Prepared",
+    "PLANNING": "Prepared",
+    "AUTHORIZED": "Prepared",
+    "SENDING": "Sent",
+    "AWAITING_ACK": "Delivered",
+    "ACKNOWLEDGED": "Acknowledged",
+    "DISPATCH_CONFIRMED": "Response Dispatched",
+    "ARRIVAL_CONFIRMED": "Arrived",
+    "CLOSED": "Closed"
+  },
+  "overlay_map": {
+    "QUEUED_OFFLINE": "Queued",
+    "RETRY_WAIT": "Queued",
+    "ESCALATING": "Escalating",
+    "CANCELLED": "Cancelled",
+    "EXHAUSTED": "Not handled",
+    "REJECTED_BY_POLICY": "Not handled"
+  },
+  "evidence_required": {
+    "Prepared": "none",
+    "Sent": "handoff",
+    "Delivered": "endpoint_delivered",
+    "Acknowledged": "human_acknowledged",
+    "Response Dispatched": "response_dispatched",
+    "Arrived": "arrival_confirmed",
+    "Closed": "closure_recorded"
+  },
+  "transitions": {
+    "CREATED": ["VALIDATING"],
+    "VALIDATING": ["ASSESSING", "REJECTED_BY_POLICY"],
+    "ASSESSING": ["AWAITING_USER", "PLANNING", "CANCELLED"],
+    "AWAITING_USER": ["PLANNING", "CANCELLED"],
+    "PLANNING": ["AUTHORIZED", "REJECTED_BY_POLICY", "EXHAUSTED", "CANCELLED"],
+    "AUTHORIZED": ["SENDING", "REJECTED_BY_POLICY", "CANCELLED"],
+    "SENDING": ["AWAITING_ACK", "QUEUED_OFFLINE", "RETRY_WAIT", "CANCELLED"],
+    "QUEUED_OFFLINE": ["SENDING", "EXHAUSTED", "CANCELLED"],
+    "RETRY_WAIT": ["SENDING", "ESCALATING", "CANCELLED"],
+    "AWAITING_ACK": ["ACKNOWLEDGED", "ESCALATING", "CANCELLED"],
+    "ESCALATING": ["PLANNING", "EXHAUSTED"],
+    "ACKNOWLEDGED": ["DISPATCH_CONFIRMED", "CLOSED", "CANCELLED"],
+    "DISPATCH_CONFIRMED": ["ARRIVAL_CONFIRMED", "CLOSED"],
+    "ARRIVAL_CONFIRMED": ["CLOSED"],
+    "CLOSED": [],
+    "CANCELLED": [],
+    "EXHAUSTED": [],
+    "REJECTED_BY_POLICY": []
+  }
+}

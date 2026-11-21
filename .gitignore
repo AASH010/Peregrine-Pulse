@@ -1,0 +1,32 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+platform/dashboard/dist/
+
+# Android / Gradle (mobile project is created by task MOB-01)
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+captures/
+
+# Experiment outputs that are not part of the recorded results
+experiments/results/tmp/
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.vscode/

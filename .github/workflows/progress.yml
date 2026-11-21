@@ -1,0 +1,53 @@
+# Refreshes the generated Progress and Milestones sections of README.md.
+# Trigger: every push to main in the upstream repository (never in forks).
+# Source of truth: task statuses and exit gates in PROJECT_PLAN.md (not commit counts).
+name: progress
+
+on:
+  push:
+    branches: [main]
+    # The job's own output is excluded so it cannot trigger itself.
+    paths-ignore:
+      - "README.md"
+      - "assets/status/**"
+
+concurrency:
+  group: progress
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  status:
+    # Skip forks and the bot's own commits.
+    if: ${{ !github.event.repository.fork && github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # only this job may write, and only generated files are committed
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for commit activity
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate the tracking contract
+        run: python scripts/update_status.py --validate
+
+      - name: Regenerate progress and milestones
+        run: python scripts/update_status.py --write
+
+      - name: Commit generated files
+        run: |
+          if [ -z "$(git status --porcelain -- README.md assets/status)" ]; then
+            echo "No status changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md assets/status
+          git commit -m "chore(status): refresh progress and milestones [skip ci]"
+          git push

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:peregrinepulse:contracts:incident:0.1.0",
+  "title": "Incident",
+  "description": "Canonical Incident Object, draft v0.1.0 (task LIF-01). Every important field records its source; simulated incidents must say so.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "incident_id",
+    "detected_at",
+    "event_type_probable",
+    "confidence",
+    "location",
+    "user_state",
+    "simulated",
+    "attempts"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "incident_id": { "type": "string", "pattern": "^[A-Za-z0-9-]{8,64}$" },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "event_type_probable": {
+      "enum": ["vehicle_collision", "fall", "unusual_motion", "manual_sos", "unknown"]
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "sources": {
+      "description": "Source of each important field, keyed by field name.",
+      "type": "object",
+      "additionalProperties": { "enum": ["sensor", "user", "system", "registry", "simulation"] }
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["latitude", "longitude", "accuracy_m", "measured_at", "source"],
+      "properties": {
+        "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+        "longitude": { "type": "number", "minimum": -180, "maximum": 180 },
+        "accuracy_m": { "type": "number", "minimum": 0 },
+        "measured_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "source": { "enum": ["gnss", "network", "last_known", "simulation"] }
+      }
+    },
+    "user_state": {
+      "enum": ["fully_responsive", "partially_responsive", "unable_to_respond", "unknown"]
+    },
+    "needs": { "type": "array", "items": { "type": "string" } },
+    "hazards": { "type": "array", "items": { "type": "string" } },
+    "simulated": { "type": "boolean" },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["entity_id", "transport", "sent_at", "outcome"],
+        "properties": {
+          "entity_id": { "type": "string", "minLength": 1 },
+          "transport": { "enum": ["wifi", "cellular", "satellite"] },
+          "sent_at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+          },
+          "outcome": {
+            "enum": ["queued", "handoff", "service_received", "endpoint_delivered", "human_acknowledged", "failed"]
+          }
+        }
+      }
+    }
+  }
+}
